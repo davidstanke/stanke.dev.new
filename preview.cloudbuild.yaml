@@ -19,8 +19,8 @@ steps:
       - run 
       - deploy 
       - stanke-dev 
-      - --revision-suffix=pr-$_PR_NUMBER
-      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER 
+      - --revision-suffix=pr-$_PR_NUMBER-$SHORT_SHA
+      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA
       - --platform=managed 
       - --region=us-central1 
       - --allow-unauthenticated 
@@ -35,7 +35,7 @@ steps:
       - services
       - update-traffic 
       - stanke-dev 
-      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER
+      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER-$SHORT_SHA
       - --platform=managed 
       - --region=us-central1
 
