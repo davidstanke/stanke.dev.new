@@ -2,6 +2,8 @@
 
 ## this is a site generator using Hugo. 
 
+# THESE DIRECTIONS ARE DEPRECATED (new build process is WIP)
+
 ### To build:
 ```
 hugo -s hugo -d ../public
