@@ -2,7 +2,8 @@
 
 ## this is a site generator using Hugo. 
 
-# THESE DIRECTIONS ARE DEPRECATED (new build process is WIP)
+# THESE DIRECTIONS ARE DEPRECATED 
+### (A new build process is WIP)
 
 ### To build:
 ```
