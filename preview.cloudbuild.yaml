@@ -9,7 +9,7 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA", "."]
   - name: gcr.io/cloud-builders/docker
-    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER"]
+    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA"]
 
   # deploy to Cloud Run
   - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
