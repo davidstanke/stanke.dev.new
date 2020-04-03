@@ -20,7 +20,7 @@ steps:
       - deploy 
       - stanke-dev 
       - --revision-suffix=pr-$_PR_NUMBER
-      - --image=gcr.io/stanke-dev/stanke-dev:$_PR_NUMBER 
+      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER 
       - --platform=managed 
       - --region=us-central1 
       - --allow-unauthenticated 
