@@ -25,12 +25,25 @@ steps:
       - --region=us-central1 
       - --allow-unauthenticated 
       - --no-traffic
+  
+  # Set Cloud Run tag
+  - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
+    entrypoint: gcloud
+    args: 
+      - alpha 
+      - run 
+      - services
+      - update-traffic 
+      - stanke-dev 
+      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER
+      - --platform=managed 
+      - --region=us-central1
 
   - name: gcr.io/$PROJECT_ID/pr-commenter
     args: [
       "davidstanke/$REPO_NAME",
       "$_PR_NUMBER",
-      "This is a static comment to demonstrate simple invocation of the PR builder."
+      "Preview this revision: https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app"
     ]
     secretEnv: 
       - GITHUB_TOKEN
