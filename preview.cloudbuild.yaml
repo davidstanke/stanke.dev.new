@@ -7,9 +7,9 @@ steps:
 
   # create a docker container that can run on cloud run
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER", "."]
+    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA", "."]
   - name: gcr.io/cloud-builders/docker
-    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER"]
+    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA"]
 
   # deploy to Cloud Run
   - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
@@ -19,8 +19,8 @@ steps:
       - run 
       - deploy 
       - stanke-dev 
-      - --revision-suffix=pr-$_PR_NUMBER
-      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER 
+      - --revision-suffix=pr-$_PR_NUMBER-$SHORT_SHA
+      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA
       - --platform=managed 
       - --region=us-central1 
       - --allow-unauthenticated 
@@ -35,7 +35,7 @@ steps:
       - services
       - update-traffic 
       - stanke-dev 
-      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER
+      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER-$SHORT_SHA
       - --platform=managed 
       - --region=us-central1
 
