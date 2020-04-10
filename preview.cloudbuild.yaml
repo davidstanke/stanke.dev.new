@@ -43,7 +43,7 @@ steps:
   - name: 'gcr.io/${PROJECT_ID}/pr-status-poster'
     args: [
           '--project-id', '${PROJECT_ID}', 
-          '--repo-name', '${REPO_NAME}',
+          '--repo-name', 'davidstanke/${REPO_NAME}',
           '--commit-sha', '${COMMIT_SHA}',
           '--target-url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app'
           ]
