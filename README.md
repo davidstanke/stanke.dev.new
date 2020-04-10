@@ -18,6 +18,7 @@ hugo -s hugo -d ../public
   * `PROJECT_ID=$(gcloud config list --format='value(core.project)')`
   * `PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')`
   * `gcloud secrets add-iam-policy-binding github_token --member serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com -role roles/secretmanager.secretAccessor`
+  * (ALSO: grant Cloud Build service account IAM access to Secret Manager / accessor)
 
 ### Set up two Cloud Build triggers:
 1. When a new pull request is openeed, build using `preview.cloudbuild.yaml`
