@@ -41,10 +41,12 @@ steps:
 
   # add preview URL as a status check
   - name: 'gcr.io/${PROJECT_ID}/pr-status-poster'
-    args: ['--project-id', '${PROJECT_ID}', 
-          '--repo-name', '${REPO_NAME}'
-          '--commit-sha', '${COMMIT_SHA}'
-          '--target_url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app']
+    args: [
+          '--project-id', '${PROJECT_ID}', 
+          '--repo-name', '${REPO_NAME}',
+          '--commit-sha', '${COMMIT_SHA}',
+          '--target_url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app'
+          ]
 
 
   # - name: gcr.io/$PROJECT_ID/pr-commenter
