@@ -45,7 +45,7 @@ steps:
           '--project-id', '${PROJECT_ID}', 
           '--repo-name', '${REPO_NAME}',
           '--commit-sha', '${COMMIT_SHA}',
-          '--target_url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app'
+          '--target-url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app'
           ]
 
 
