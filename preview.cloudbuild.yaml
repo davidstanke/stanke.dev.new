@@ -39,19 +39,27 @@ steps:
       - --platform=managed 
       - --region=us-central1
 
-  - name: gcr.io/$PROJECT_ID/pr-commenter
-    args: [
-      "davidstanke/$REPO_NAME",
-      "$_PR_NUMBER",
-      "Preview this revision: https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app"
-    ]
-    secretEnv: 
-      - GITHUB_TOKEN
+  # add preview URL as a status check
+  - name: 'gcr.io/${PROJECT_ID}/pr-status-poster'
+    args: ['--project-id', '${PROJECT_ID}', 
+          '--repo-name', '${REPO_NAME}'
+          '--commit-sha', '${COMMIT_SHA}'
+          '--target_url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app']
 
-secrets:
-  - kmsKeyName: projects/stanke-dev/locations/global/keyRings/stanke-dev/cryptoKeys/github-access-token
-    secretEnv: 
-      GITHUB_TOKEN: "\
-      CiQApWZD3glqQqWrQokId3TuRrWfBMPTtu/B1ccsr+VKlAvFJGQSUQBLWP5TLHS\
-      hG81/eGy20mkRBMYv/HBBlrAl+hCInE4UMXDerAFDBAUlV4gvt/32Idi1spAk/T8\
-      PW8nsu8q946j7+9sP5mJo7ZBTauLmKYLLeg=="
+
+  # - name: gcr.io/$PROJECT_ID/pr-commenter
+  #   args: [
+  #     "davidstanke/$REPO_NAME",
+  #     "$_PR_NUMBER",
+  #     "Preview this revision: https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app"
+  #   ]
+  #   secretEnv: 
+  #     - GITHUB_TOKEN
+
+# secrets:
+#   - kmsKeyName: projects/stanke-dev/locations/global/keyRings/stanke-dev/cryptoKeys/github-access-token
+#     secretEnv: 
+#       GITHUB_TOKEN: "\
+#       CiQApWZD3glqQqWrQokId3TuRrWfBMPTtu/B1ccsr+VKlAvFJGQSUQBLWP5TLHS\
+#       hG81/eGy20mkRBMYv/HBBlrAl+hCInE4UMXDerAFDBAUlV4gvt/32Idi1spAk/T8\
+#       PW8nsu8q946j7+9sP5mJo7ZBTauLmKYLLeg=="
