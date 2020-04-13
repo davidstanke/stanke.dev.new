@@ -23,3 +23,4 @@ hugo -s hugo -d ../public
 ### Set up two Cloud Build triggers:
 1. When a new pull request is openeed, build using `preview.cloudbuild.yaml`
 2. When a commit is merged to master, build using `cloudbuild.yaml`
+
