@@ -1,5 +1,0 @@
-steps:
-- name: gcr.io/cloud-builders/gcloud
-  args: [
-    "compute","ssh","testinstance","--zone=us-central1-a"
-  ]
