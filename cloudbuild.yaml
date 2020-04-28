@@ -35,3 +35,5 @@ steps:
       - update-traffic 
       - stanke-dev 
       - --to-revisions=commit-$SHORT_SHA=100
+      - --platform=managed 
+      - --region=us-central1 
