@@ -12,7 +12,7 @@ steps:
     args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA"]
 
   # deploy to Cloud Run
-  - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
+  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
     entrypoint: gcloud
     args: 
       - alpha 
@@ -27,7 +27,7 @@ steps:
       - --no-traffic
   
   # Set Cloud Run tag
-  - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
+  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
     entrypoint: gcloud
     args: 
       - alpha 
