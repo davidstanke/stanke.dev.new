@@ -15,7 +15,6 @@ steps:
   - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
     entrypoint: gcloud
     args: 
-      - alpha 
       - run 
       - deploy 
       - stanke-dev 
@@ -29,7 +28,6 @@ steps:
   - name: gcr.io/cloud-builders/gcloud@sha256:ffc20cf6058d8622d98ecfbfbfb4f2dc50bc2dfff245511a270e0098f885a7db
     entrypoint: gcloud
     args: 
-      - alpha
       - run 
       - services
       - update-traffic 
