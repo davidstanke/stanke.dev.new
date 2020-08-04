@@ -1,5 +1,5 @@
 ---
-title: "Stanke.dev"
+title: "Dave Stanke likes to talk DevOps"
 draft: false
 ---
 
