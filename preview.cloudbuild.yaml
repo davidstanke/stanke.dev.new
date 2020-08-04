@@ -7,43 +7,28 @@ steps:
 
   # create a docker container that can run on cloud run
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA", "."]
+    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:c$SHORT_SHA", "."]
   - name: gcr.io/cloud-builders/docker
-    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA"]
+    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:c$SHORT_SHA"]
 
   # deploy to Cloud Run
-  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
+  - name: gcr.io/cloud-builders/gcloud@sha256:3971d22114ad25262ee04e9161020c5145cc8eb65f710f3cc22d0f4b47a78984
     entrypoint: gcloud
-    args: 
-      - alpha 
-      - run 
-      - deploy 
-      - stanke-dev 
-      - --revision-suffix=pr-$_PR_NUMBER-$SHORT_SHA
-      - --image=gcr.io/stanke-dev/stanke-dev:pr-$_PR_NUMBER-$SHORT_SHA
-      - --platform=managed 
-      - --region=us-central1 
-      - --allow-unauthenticated 
-      - --no-traffic
-  
-  # Set Cloud Run tag
-  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
-    entrypoint: gcloud
-    args: 
-      - alpha 
-      - run 
-      - services
-      - update-traffic 
-      - stanke-dev 
-      - --update-tags=pr-$_PR_NUMBER=stanke-dev-pr-$_PR_NUMBER-$SHORT_SHA
-      - --platform=managed 
-      - --region=us-central1
+    args: [
+      'alpha', 'run', 'deploy', 'stanke-dev',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--image=gcr.io/stanke-dev/stanke-dev:c$SHORT_SHA',
+      '--tag=c$SHORT_SHA',
+      '--no-traffic'
+    ]
 
   # add preview URL as a status check
   - name: 'gcr.io/${PROJECT_ID}/pr-status-poster'
     args: [
-          '--project-id', '${PROJECT_ID}', 
-          '--repo-name', 'davidstanke/${REPO_NAME}',
-          '--commit-sha', '${COMMIT_SHA}',
-          '--target-url', 'https://pr-$_PR_NUMBER---stanke-dev-t63odkzjiq-uc.a.run.app'
-          ]
+      '--project-id', '${PROJECT_ID}', 
+      '--repo-name', 'davidstanke/${REPO_NAME}',
+      '--commit-sha', '${COMMIT_SHA}',
+      '--target-url', 'https://c$SHORT_SHA---stanke-dev-t63odkzjiq-uc.a.run.app'
+    ]
