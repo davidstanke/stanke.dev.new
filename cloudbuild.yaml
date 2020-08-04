@@ -6,32 +6,22 @@ steps:
       ]
 
  # create a docker container that can run on cloud run
+ # TODO: skip this step if container already exists
+ # (which it *should*, because it should have been built as part of CI for PRs,
+ # but if an admin skips PR, then it will need to be built fresh)
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:$SHORT_SHA", "."]
+    args: ["build", "-f", "tools/preview_container/Dockerfile", "-t", "gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA", "."]
   - name: gcr.io/cloud-builders/docker
-    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:$SHORT_SHA"]
+    args: ["push","gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA"]
 
   # deploy to Cloud Run
   - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
     entrypoint: gcloud
-    args: 
-      - run 
-      - deploy 
-      - stanke-dev 
-      - --image=gcr.io/stanke-dev/stanke-dev:$SHORT_SHA
-      - --platform=managed 
-      - --region=us-central1 
-      - --allow-unauthenticated 
-      - --revision-suffix=commit-$SHORT_SHA
-      
-  # Route traffic to new version
-  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
-    entrypoint: gcloud
-    args: 
-      - run 
-      - services
-      - update-traffic 
-      - stanke-dev 
-      - --to-revisions=commit-$SHORT_SHA=100
-      - --platform=managed 
-      - --region=us-central1 
+    args: [
+    'run', 'deploy', 'stanke-dev', 
+    '--image', 'gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA', 
+    '--region', 'us-central1',
+    '--platform', 'managed',
+    '--allow-unauthenticated',
+    '--quiet'
+    ]
