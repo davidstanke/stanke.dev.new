@@ -18,10 +18,7 @@ steps:
   - name: gcr.io/cloud-builders/gcloud@sha256:3971d22114ad25262ee04e9161020c5145cc8eb65f710f3cc22d0f4b47a78984
     entrypoint: gcloud
     args: [
-    'run', 'deploy', 'stanke-dev-new', 
-    '--image', 'gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA', 
+    'alpha', 'run', 'deploy', 'stanke-dev-new', 
     '--region', 'us-central1',
-    '--platform', 'managed',
-    '--allow-unauthenticated',
-    '--quiet'
+    '--image', 'gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA', 
     ]
