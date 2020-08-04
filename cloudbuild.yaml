@@ -15,7 +15,7 @@ steps:
     args: ["push","gcr.io/$PROJECT_ID/stanke-dev:commit$SHORT_SHA"]
 
   # deploy to Cloud Run
-  - name: gcr.io/cloud-builders/gcloud@sha256:4a06b4ebf02b29ed6e8e0fd0eb15c6a0641ee70d8278d7e9d4dcffc5612ebb92
+  - name: gcr.io/cloud-builders/gcloud@sha256:3971d22114ad25262ee04e9161020c5145cc8eb65f710f3cc22d0f4b47a78984
     entrypoint: gcloud
     args: [
     'run', 'deploy', 'stanke-dev', 
